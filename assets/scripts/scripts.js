@@ -1,8 +1,6 @@
 /* GLOBAL VARIABLES */
 /*****************************************/
-
-// Fetches and formats current time
-var currentTime = moment().format("dddd, MMMM Do YYYY, h:mm A");
+var currentTime;
 
 // Choose a value between 0 - (12 AM) and 23 - (11 PM) for each.
 var calendarStartHour = 9;
@@ -19,6 +17,7 @@ var calendarBody = $("#calendarBody");
 
 iterateRows();
 startHour();
+makeHeader();
 
 // Creates rows for each hour to display. Calculated as the difference between start and end hour.
 function iterateRows() {
@@ -78,4 +77,14 @@ function startHour(num, i) {
     .hour(startingHour)
     .minute(0)
     .format("h A");
+}
+
+function makeHeader() {
+  updateTime();
+  $("#calendarHeader").html("");
+  $("#calendarHeader").append($("<h1>", { text: currentTime }));
+}
+
+function updateTime() {
+  currentTime = moment().format("dddd, MMMM Do, YYYY");
 }
