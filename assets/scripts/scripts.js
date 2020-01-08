@@ -4,31 +4,29 @@
 // Fetches and formats current time
 var currentTime = moment().format("dddd, MMMM Do YYYY, h:mm A");
 
+var calendarStartHour = 8;
+var calendarEndHour = 17;
+
 // Number of events on the calendar
 var eventCount = 0;
 var pastEvents = 0;
 var remainingEvents = eventCount - pastEvents;
 
 // Selector for first calendar row
-var firstRow = $("#calendarRow");
+var calendarBody = $("#calendarBody");
 /*****************************************/
 
-for (i=0; i < 3; i++){
-makeFirstRow(i);
-}
+iterateRows();
+startHour();
 
-function generateRow(i) {
-  var newRow = firstRow.clone().attr("id", "calendarRow" + i);
-  newRow.appendTo(firstRow);
-}
-
-// TODO - FIND A LESS AWFUL TO PARSE WAY TO GENERATE THIS
-// Generate a bootstrap collapsible row
-function makeFirstRow(i) {
-  $("#calendarBody").append(
+/* TODO - FIND A MORE READABLE WAY TO GENERATE THESE ROWS
+*********************************************************
+  Generate a bootstrap collapsible row                  */
+function makeRow(i) {
+  calendarBody.append(
     $("<div>", { class: "card" }).append(
       $("<div>", { class: "card-header", id: "heading" + i }).append(
-        $("<h5>", { class: "mb-0" }).append(
+        $("<h5>", { class: "mb-0", id:"title"+i }).append(
           $("<button>", {
             class: "btn btn-link",
             "data-toggle": "collapse",
@@ -40,7 +38,7 @@ function makeFirstRow(i) {
       )
     )
   );
-  $("#calendarBody").append(
+  calendarBody.append(
     $("<div>", {
       id: "collapse" + i,
       class: "collapse hide",
@@ -48,8 +46,31 @@ function makeFirstRow(i) {
       "data-parent": "#calendarBody"
     }).append(
       $("<div>", { class: "card-body" }).append(
-        $("<span>", { text: "EVENT TEXT"+i })
+        $("<span>", { text: "EVENT TEXT" + i })
       )
     )
   );
+}
+
+// Creates 'num' rows -> num = 9 for a 9-5 workday
+function iterateRows() {
+  var numHours = calendarEndHour - calendarStartHour;
+  for (let i = 0; i <= numHours; i++) {
+    makeRow(i);
+    assignTime(i);
+  }
+  
+}
+
+// Assigns a time value to each generated row
+function assignTime(num){
+  $("#title"+num).append(
+    $("<span>", {class:"text-right", text:startHour(num, calendarStartHour)})
+  )
+}
+
+// 
+function startHour(num, i){
+  startingHour = num + i
+  return moment().hour(startingHour).minute(0).format("h A");
 }
