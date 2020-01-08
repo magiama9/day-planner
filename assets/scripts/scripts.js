@@ -13,15 +13,19 @@ var remainingEvents = eventCount - pastEvents;
 var firstRow = $("#calendarRow");
 /*****************************************/
 
-makeFirstRow(1);
+for (i=0; i < 3; i++){
+makeFirstRow(i);
+}
 
 function generateRow(i) {
   var newRow = firstRow.clone().attr("id", "calendarRow" + i);
   newRow.appendTo(firstRow);
 }
 
+// TODO - FIND A LESS AWFUL TO PARSE WAY TO GENERATE THIS
+// Generate a bootstrap collapsible row
 function makeFirstRow(i) {
-  $("#calendarRow").append(
+  $("#calendarBody").append(
     $("<div>", { class: "card" }).append(
       $("<div>", { class: "card-header", id: "heading" + i }).append(
         $("<h5>", { class: "mb-0" }).append(
@@ -36,12 +40,12 @@ function makeFirstRow(i) {
       )
     )
   );
-  $("#calendarRow").append(
+  $("#calendarBody").append(
     $("<div>", {
       id: "collapse" + i,
-      class: "collapse show",
+      class: "collapse hide",
       "aria-labelledby": "heading" + i,
-      "data-parent": "#calendarRow"
+      "data-parent": "#calendarBody"
     }).append(
       $("<div>", { class: "card-body" }).append(
         $("<span>", { text: "EVENT TEXT"+i })
