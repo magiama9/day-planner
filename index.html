@@ -21,6 +21,47 @@
   <body>
     <h1>Day Planner</h1>
 
+    <!-- Container for planner -->
+    <div class="container">
+      <!-- Row For Calendar Header -->
+      <div class="row" id="calendarHeader">
+        <div class="col-12">
+          <!-- CALENDAR HEADER GOES HERE -->
+        </div>
+      </div>
+      <div id="calendarBody">
+        <!-- CALENDAR ROWS GO HERE -->
+        <div id="calendarRow">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button
+                  class="btn btn-link"
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  CALENDAR ROW 1
+                </button>
+              </h5>
+            </div>
+
+            <div
+              id="collapseOne"
+              class="collapse show"
+              aria-labelledby="headingOne"
+              data-parent="#calendarRow"
+            >
+              <div class="card-body">
+                EVENT TEXT
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- JavaScript Loading -->
     <!-- jQuery first, then popper.js, then moment.js, then bootstrap.js, then custom JS -->
     <script
