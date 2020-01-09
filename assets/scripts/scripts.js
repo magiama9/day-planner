@@ -15,6 +15,7 @@ var remainingEvents = eventCount - pastEvents;
 var calendarBody = $("#calendarBody");
 /*****************************************/
 
+
 iterateRows();
 startHour();
 makeHeader();
@@ -25,15 +26,20 @@ function iterateRows() {
   for (let i = 0; i <= numHours; i++) {
     makeRow(i);
     assignTime(i);
+    insertItem(i);
   }
 }
 
-// Generate a bootstrap collapsible card to display as each calendar row
+/* Generates a bootstrap collapsible card to display as each calendar row.
+The time value is prepended to the input-group div and displays as a button/label*/
 function makeRow(i) {
   calendarBody.append(
     $("<div>", { class: "card" }).append(
-      $("<div>", { class: "card-header", id: "heading" + i }).append(
-        $("<h5>", { class: "mb-0" }).append(
+      $("<div>", {
+        class: "card-header input-group p-2",
+        id: "heading" + i
+      }).append(
+        $("<div>", { class: "input-group-prepend" }).append([
           $("<button>", {
             class: "btn btn-link",
             "data-toggle": "collapse",
@@ -41,8 +47,16 @@ function makeRow(i) {
             "aria-expanded": "true",
             "aria-controls": "collapse" + i,
             id: "title" + i
-          })
-        )
+          }),
+          $("<div>", { class: "col-12 inputField" }).append(
+            $("<input>", {
+              class: "mb-0 form-control",
+              placeholder: "Add Event",
+              id: "eventInput" + i,
+              type: "text"
+            })
+          )
+        ])
       )
     )
   );
@@ -54,7 +68,7 @@ function makeRow(i) {
       "data-parent": "#calendarBody"
     }).append(
       $("<div>", { class: "card-body" }).append(
-        $("<span>", { text: "EVENT TEXT" + i })
+        $("<span>", { id: "eventBody" + i })
       )
     )
   );
@@ -62,9 +76,9 @@ function makeRow(i) {
 
 // Assigns a time value to each generated row
 function assignTime(num) {
-  $("#title" + num).append(
+  $("#title" + num).prepend(
     $("<span>", {
-      class: "text-right",
+      class: "text-right input-group-text",
       text: startHour(num, calendarStartHour)
     })
   );
@@ -88,3 +102,34 @@ function makeHeader() {
 function updateTime() {
   currentTime = moment().format("dddd, MMMM Do, YYYY");
 }
+
+function insertItem(i) {
+  // Fetch stored events from local storage
+  var storedEvents = JSON.parse(
+    localStorage.getItem("storedEvents" + i) || "[]"
+  );
+  $("#eventBody" + i).text("");
+
+  // Push new eventto the array if there is a value
+  if ($("#eventInput" + i).val() != 0) {
+    var newEvent = {
+      name: $("#eventInput" + i).val(),
+      eventId: "eventInput" + i
+    };
+    storedEvents.push(newEvent);
+  }
+
+  // Iterates through the event list and appends them.
+  for (var j = 0; j < storedEvents.length; j++) {
+    $("#eventBody" + j).append(
+      "<li class='list-group-item border-0'>" +
+        storedEvents[j].name +
+        "---" +
+        storedEvents[j].eventID
+    );
+  }
+
+  localStorage.setItem("storedEvents" + i, JSON.stringify(storedEvents));
+}
+
+
