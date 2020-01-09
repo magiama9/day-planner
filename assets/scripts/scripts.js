@@ -111,6 +111,11 @@ The time value is prepended to the input-group div and displays as a button/labe
     currentTime = moment().format("dddd, MMMM Do, YYYY");
   }
 
+  // function isInFuture(num) {
+  //   if(moment().isAfter(startHour(num, calendarStartHour))){
+  //     console.log("It's after that.");
+  //   }
+  // }
   // Event Handler For Enter Key on Input
   $(".form-control").on("keydown", function(e) {
     let keycode = e.which;
@@ -150,6 +155,7 @@ The time value is prepended to the input-group div and displays as a button/labe
   function colorHeader(i) {
     $("#heading" + i).addClass("hasEvent");
   }
+
   function insertItem() {
     // Fetch stored events from local storage
     var storedEvents = JSON.parse(
