@@ -12,9 +12,11 @@ var pastEvents = 0;
 var remainingEvents = eventCount - pastEvents;
 
 // Selector for first calendar row
-var calendarBody = $("#calendarBody");
+let calendarBody = $("#calendarBody");
+let eventBody = $(".eventBody");
+let inputVal = "";
+let inputId = "";
 /*****************************************/
-
 
 iterateRows();
 startHour();
@@ -26,7 +28,6 @@ function iterateRows() {
   for (let i = 0; i <= numHours; i++) {
     makeRow(i);
     assignTime(i);
-    insertItem(i);
   }
 }
 
@@ -68,7 +69,10 @@ function makeRow(i) {
       "data-parent": "#calendarBody"
     }).append(
       $("<div>", { class: "card-body" }).append(
-        $("<span>", { id: "eventBody" + i })
+        $("<span>", {
+          id: "eventBody" + i,
+          class: "eventBody"
+        })
       )
     )
   );
@@ -103,7 +107,18 @@ function updateTime() {
   currentTime = moment().format("dddd, MMMM Do, YYYY");
 }
 
-function insertItem(i) {
+// Event Handler For Enter Key on Input
+$(document).on("keydown", $(".form-input"), function(e) {
+  let keycode = e.which;
+
+  if (keycode === 13) {
+    console.log("this worked");
+    inputId = $(this).attr("id");
+    inputVal = $(this).val();
+  }
+});
+
+function insertItem() {
   // Fetch stored events from local storage
   var storedEvents = JSON.parse(
     localStorage.getItem("storedEvents" + i) || "[]"
@@ -125,11 +140,9 @@ function insertItem(i) {
       "<li class='list-group-item border-0'>" +
         storedEvents[j].name +
         "---" +
-        storedEvents[j].eventID
+        storedEvents[j].eventId
     );
   }
 
   localStorage.setItem("storedEvents" + i, JSON.stringify(storedEvents));
 }
-
-
