@@ -71,7 +71,7 @@ function makeRow(i) {
       $("<div>", { class: "card-body" }).append(
         $("<span>", {
           id: "eventBody" + i,
-          class: "eventBody"
+          "data-parent": "eventBody" +i
         })
       )
     )
