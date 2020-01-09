@@ -139,14 +139,17 @@ The time value is prepended to the input-group div and displays as a button/labe
           "<li class='list-group-item border-0'>" + inputVal
         );
         toggleCollapse(i);
+        colorHeader(i);
       }
     }
   }
 
-  function toggleCollapse(i){
-    $("#collapse"+i).addClass("show");
+  function toggleCollapse(i) {
+    $("#collapse" + i).addClass("show");
   }
-
+  function colorHeader(i) {
+    $("#heading" + i).addClass("hasEvent");
+  }
   function insertItem() {
     // Fetch stored events from local storage
     var storedEvents = JSON.parse(
