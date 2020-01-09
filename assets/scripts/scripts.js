@@ -24,8 +24,6 @@ $(document).ready(function() {
   startHour();
   makeHeader();
 
-  console.log($("span[id^=eventBody]"));
-
   // Creates rows for each hour to display. Calculated as the difference between start and end hour.
   function iterateRows() {
     var numHours = calendarEndHour - calendarStartHour;
@@ -121,21 +119,23 @@ The time value is prepended to the input-group div and displays as a button/labe
       console.log("this worked");
       inputId = $(this).attr("id");
       inputVal = $(this).val();
+
+      // Prepends the item into the card body
       updateEventBody();
+
+      // Clears out input field
+      $(this).val("");
     }
   });
 
-  // $(".container").on("click", updateEventBody());
-
   // Updates text of the event body
   function updateEventBody() {
-    console.log($("span[id^=eventBody]"));
     let eventBodyArr = $("span[id^=eventBody]");
-    console.log(eventBodyArr.length);
     
+    // Iterates through spans to find the one that matches the input field
     for (let i = 0; i < eventBodyArr.length; i++) {
       if (inputId === "eventInput" + i) {
-        $(".eventInput" + i).append(
+        $(".eventInput" + i).prepend(
           "<li class='list-group-item border-0'>" + inputVal
         );
       }
