@@ -131,15 +131,20 @@ The time value is prepended to the input-group div and displays as a button/labe
   // Updates text of the event body
   function updateEventBody() {
     let eventBodyArr = $("span[id^=eventBody]");
-    
+    console.log($("#collapse0"));
     // Iterates through spans to find the one that matches the input field
     for (let i = 0; i < eventBodyArr.length; i++) {
       if (inputId === "eventInput" + i) {
         $(".eventInput" + i).prepend(
           "<li class='list-group-item border-0'>" + inputVal
         );
+        toggleCollapse(i);
       }
     }
+  }
+
+  function toggleCollapse(i){
+    $("#collapse"+i).addClass("show");
   }
 
   function insertItem() {
