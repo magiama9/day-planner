@@ -1,3 +1,7 @@
 .hasEvent {
   background: #d63f74;
 }
+
+.span.input-group-text {
+  font-family: "Monoton", cursive;
+}
