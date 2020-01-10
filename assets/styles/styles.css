@@ -2,6 +2,9 @@
   background: #d63f74;
 }
 
-.span.input-group-text {
+button.btn {
   font-family: "Monoton", cursive;
+  width: 300px;
 }
+
+

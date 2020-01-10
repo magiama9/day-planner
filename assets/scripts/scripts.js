@@ -53,7 +53,7 @@ The time value is prepended to the input-group div and displays as a button/labe
             }),
             $("<div>", { class: "col-12 inputField" }).append(
               $("<input>", {
-                class: "mb-0 form-control",
+                class: "mb-0 form-control align-bottom",
                 placeholder: "Add Event",
                 id: "eventInput" + i,
                 type: "text"
