@@ -12,11 +12,11 @@ This application is a simple day planner allowing a user to input, save, and vie
 
 ## TO-DO
 
-* Display calendar
-* Allow user to input events
+* ~~Display calendar~~
+* ~~Allow user to input events~~
 * Save events to local storage
 * Style events based on relation to present time
 * Allow user to style events independently
-* Make planner responsive and accessible
+* ~~Make planner responsive and accessible~~
 * Identify user and display different stored calendars based on user
 
