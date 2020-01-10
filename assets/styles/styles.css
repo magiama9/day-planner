@@ -7,4 +7,8 @@ button.btn {
   width: 300px;
 }
 
+input.form-control {
+  align-items: right;
+}
+
 

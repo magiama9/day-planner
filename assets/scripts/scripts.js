@@ -23,6 +23,8 @@ $(document).ready(function() {
   iterateRows();
   startHour();
   makeHeader();
+  addButton();
+  isPast(1);
 
   // Creates rows for each hour to display. Calculated as the difference between start and end hour.
   function iterateRows() {
@@ -30,6 +32,7 @@ $(document).ready(function() {
     for (let i = 0; i <= numHours; i++) {
       makeRow(i);
       assignTime(i);
+      
     }
   }
 
@@ -80,6 +83,12 @@ The time value is prepended to the input-group div and displays as a button/labe
     );
   }
 
+  function addButton() {
+    $(".form-control").append("<i>", {
+      class: "material-icons"
+    });
+    $(".material-icons").text("face");
+  }
   // Assigns a time value to each generated row
   function assignTime(num) {
     $("#title" + num).prepend(
@@ -89,7 +98,11 @@ The time value is prepended to the input-group div and displays as a button/labe
       })
     );
   }
-
+  function isPast(num) {
+    updateTime();
+    if(moment(currentTime).isAfter($("#title"+num).text()));
+    
+  }
   // Sets the hour to iterate from when labeling rows.
   function startHour(num, i) {
     startingHour = num + i;
@@ -127,7 +140,7 @@ The time value is prepended to the input-group div and displays as a button/labe
 
       // Prepends the item into the card body
       updateEventBody();
-
+      eventCount++;
       // Clears out input field
       $(this).val("");
     }
