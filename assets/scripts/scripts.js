@@ -24,7 +24,7 @@ $(document).ready(function() {
   startHour();
   makeHeader();
   addButton();
-  isPast(1);
+  // isPast(1);
 
   // Creates rows for each hour to display. Calculated as the difference between start and end hour.
   function iterateRows() {
@@ -32,7 +32,6 @@ $(document).ready(function() {
     for (let i = 0; i <= numHours; i++) {
       makeRow(i);
       assignTime(i);
-      
     }
   }
 
@@ -40,29 +39,31 @@ $(document).ready(function() {
 The time value is prepended to the input-group div and displays as a button/label*/
   function makeRow(i) {
     calendarBody.append(
-      $("<div>", { class: "card" }).append(
-        $("<div>", {
-          class: "card-header input-group p-2",
-          id: "heading" + i
-        }).append(
-          $("<div>", { class: "input-group-prepend" }).append([
-            $("<button>", {
-              class: "btn btn-link",
-              "data-toggle": "collapse",
-              "data-target": "#collapse" + i,
-              "aria-expanded": "true",
-              "aria-controls": "collapse" + i,
-              id: "title" + i
-            }),
-            $("<div>", { class: "col-12 inputField" }).append(
-              $("<input>", {
-                class: "mb-0 form-control align-bottom",
-                placeholder: "Add Event",
-                id: "eventInput" + i,
-                type: "text"
-              })
-            )
-          ])
+      $("<div>", { class: "row" }).append(
+        $("<div>", { class: "card col-12 no-gutters" }).append(
+          $("<div>", {
+            class: "card-header input-group p-2",
+            id: "heading" + i
+          }).append(
+            $("<div>", { class: "input-group-prepend col-12" }).append([
+              $("<button>", {
+                class: "btn btn-link btn-lg btn-block",
+                "data-toggle": "collapse",
+                "data-target": "#collapse" + i,
+                "aria-expanded": "true",
+                "aria-controls": "collapse" + i,
+                id: "title" + i
+              }),
+              $("<div>", { class: "inputField" }).append(
+                $("<input>", {
+                  class: "mb-0 form-control align-bottom",
+                  placeholder: "Add Event",
+                  id: "eventInput" + i,
+                  type: "text"
+                })
+              )
+            ])
+          )
         )
       )
     );
@@ -100,8 +101,7 @@ The time value is prepended to the input-group div and displays as a button/labe
   }
   function isPast(num) {
     updateTime();
-    if(moment(currentTime).isAfter($("#title"+num).text()));
-    
+    if (moment(currentTime).isAfter($("#title" + num).text()));
   }
   // Sets the hour to iterate from when labeling rows.
   function startHour(num, i) {
