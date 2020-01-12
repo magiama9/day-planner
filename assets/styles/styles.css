@@ -2,9 +2,9 @@ html,
 body {
   background: #dee3dc;
 }
-/* .hasEvent {
+.hasEvent {
   background: #d63f74;
-} */
+}
 
 button.btn.btn-link {
   /* font-family: "Monoton", cursive; */
@@ -32,4 +32,12 @@ span.text-right.input-group-text {
 
 li.list-group-item.border-0 {
   background: #dee3dc;
+}
+
+div.card.hasEvent {
+  background: #d63f74;
+}
+
+span.testColor {
+  background: #000000;
 }

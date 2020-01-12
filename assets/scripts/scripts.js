@@ -14,6 +14,10 @@ var remainingEvents = eventCount - pastEvents;
 // Selector for first calendar row
 let calendarBody = $("#calendarBody");
 let eventBody = $(".eventBody");
+let listItem = $("li").hasClass("list-group-item");
+
+// Variable for detecting and coloring list based on whether it has an event
+let hasList;
 
 // Global Variables for Storing Form Inputs
 let inputVal = "";
@@ -122,6 +126,9 @@ The time value is prepended to the input-group div and displays as a button/labe
     updateTime();
     $("#calendarHeader").html("");
     $("#calendarHeader").append($("<h1>", { text: currentTime }));
+    $("#calendarHeader").append(
+      $("<h1>", { text: "You have " + eventCount + " events today." })
+    );
   }
 
   // Fetches and updates current time in moment
@@ -141,6 +148,7 @@ The time value is prepended to the input-group div and displays as a button/labe
       // Prepends the item into the card body
       updateEventBody();
       eventCount++;
+      makeHeader();
       // Clears out input field
       $(this).val("");
     }
@@ -190,4 +198,22 @@ The time value is prepended to the input-group div and displays as a button/labe
 
     localStorage.setItem("storedEvents" + i, JSON.stringify(storedEvents));
   }
+
+  // Remove List Item On Click, reduce event count by 1, update the header
+  $("div[id^=collapse]").on("click", function(e) {
+    let eventBodyArr = $("span[id^=eventBody]");
+    console.log(e.target);
+    $(e.target).remove();
+    eventCount--;
+    makeHeader();
+
+    // Determines whether or not the hour has a list item to change the color
+
+    for (i = 0; i < eventBodyArr.length; i++) {
+      let hasList = $("#collapse" + i).has("li");
+      if (hasList.length === 0) {
+        $("#heading" + i).removeClass("hasEvent");
+      }
+    }
+  });
 });
