@@ -113,7 +113,7 @@ The time value is prepended to the input-group div and displays as a button/labe
     console.log(currentHourMoment.isAfter(eventHourMoment, "HH"));
   }
   // Sets the hour to iterate from when labeling rows.
-  function startHour(num, i) {
+  function startHour(i, num) {
     startingHour = num + i;
     return moment()
       .hour(startingHour)
