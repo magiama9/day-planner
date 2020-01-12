@@ -22,6 +22,7 @@ let hasList;
 // Global Variables for Storing Form Inputs
 let inputVal = "";
 let inputId = "";
+let localStorageEvents;
 /*****************************************/
 $(document).ready(function() {
   iterateRows();
@@ -157,15 +158,24 @@ The time value is prepended to the input-group div and displays as a button/labe
   // Updates text of the event body
   function updateEventBody() {
     let eventBodyArr = $("span[id^=eventBody]");
-    console.log($("#collapse0"));
     // Iterates through spans to find the one that matches the input field
+    // InputVal is updated in the event handler where updateEventBody() is called
     for (let i = 0; i < eventBodyArr.length; i++) {
       if (inputId === "eventInput" + i) {
         $(".eventInput" + i).prepend(
           "<li class='list-group-item border-0'>" + inputVal
         );
+        storedEvents[i].eventList.push(inputVal);
         toggleCollapse(i);
         colorHeader(i);
+        localStorageEvents = JSON.parse(
+          localStorage.getItem("storedEvents" + i) || "[]"
+        );
+        localStorageEvents.push(inputVal);
+        localStorage.setItem(
+          "storedEvents" + i,
+          JSON.stringify(localStorageEvents)
+        );
       }
     }
   }
@@ -180,36 +190,15 @@ The time value is prepended to the input-group div and displays as a button/labe
     $("#heading" + i).addClass("hasEvent");
   }
 
-  function insertItem() {
-    // Fetch stored events from local storage
-    var storedEvents = JSON.parse(
-      localStorage.getItem("storedEvents" + i) || "[]"
-    );
-    $("#eventBody" + i).text("");
-
-    // Push new eventto the array if there is a value
-    if ($("#eventInput" + i).val() != 0) {
-      var newEvent = {
-        name: $("#eventInput" + i).val(),
-        eventId: "eventInput" + i
-      };
-      storedEvents.push(newEvent);
-    }
-
-    // Iterates through the event list and appends them.
-    for (var j = 0; j < storedEvents.length; j++) {}
-
-    localStorage.setItem("storedEvents" + i, JSON.stringify(storedEvents));
-  }
-
   // Remove List Item On Click, reduce event count by 1, update the header
   // Event handler is on all the divs with an id beginning in "collapse" e.g. id=collapse0 or id=collapse4
   $("div[id^=collapse]").on("click", function(e) {
     let eventBodyArr = $("span[id^=eventBody]");
-    console.log(e.target);
+    let targetText = $(e.target).text();
     $(e.target).remove();
     eventCount--;
     makeHeader();
+    console.log(targetText);
 
     // Determines whether or not the hour has a list item to change the color
 
@@ -217,6 +206,23 @@ The time value is prepended to the input-group div and displays as a button/labe
       let hasList = $("#collapse" + i).has("li");
       if (hasList.length === 0) {
         $("#heading" + i).removeClass("hasEvent");
+      }
+      // Removes selected value from the stored events array (stored in event-storage.js)
+      storedEvents[i].eventList.splice(
+        $.inArray(targetText, storedEvents[i].eventList),
+        1
+      );
+
+      // Handles local storage
+      localStorageEvents = JSON.parse(
+        localStorage.getItem("storedEvents" + i) || "[]"
+      );
+      // Removes the value and updates local storage
+      let index = localStorageEvents.indexOf(targetText);
+      if (index >= 0) {
+        localStorageEvents.splice(targetText, 1);
+        console.log(localStorageEvents);
+        localStorage.setItem("storedEvents" + i, localStorageEvents);
       }
     }
   });
