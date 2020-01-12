@@ -170,9 +170,12 @@ The time value is prepended to the input-group div and displays as a button/labe
     }
   }
 
+  // Expands & collapses card body
   function toggleCollapse(i) {
     $("#collapse" + i).addClass("show");
   }
+
+  // Adds a style to card header when an event is added
   function colorHeader(i) {
     $("#heading" + i).addClass("hasEvent");
   }
@@ -200,6 +203,7 @@ The time value is prepended to the input-group div and displays as a button/labe
   }
 
   // Remove List Item On Click, reduce event count by 1, update the header
+  // Event handler is on all the divs with an id beginning in "collapse" e.g. id=collapse0 or id=collapse4
   $("div[id^=collapse]").on("click", function(e) {
     let eventBodyArr = $("span[id^=eventBody]");
     console.log(e.target);
