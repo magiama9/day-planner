@@ -24,7 +24,7 @@ $(document).ready(function() {
   startHour();
   makeHeader();
   addButton();
-  // isPast(1);
+  isPast(0);
 
   // Creates rows for each hour to display. Calculated as the difference between start and end hour.
   function iterateRows() {
@@ -100,8 +100,13 @@ The time value is prepended to the input-group div and displays as a button/labe
     );
   }
   function isPast(num) {
-    updateTime();
-    if (moment(currentTime).isAfter($("#title" + num).text()));
+    let eventHour = $("#title" + num).text();
+    let eventHourMoment = moment(eventHour);
+    console.log(eventHourMoment);
+    let currentHour = moment().format("HH");
+    let currentHourMoment = moment(currentHour);
+    console.log(currentHour);
+    console.log(currentHourMoment.isAfter(eventHourMoment, "HH"));
   }
   // Sets the hour to iterate from when labeling rows.
   function startHour(num, i) {
@@ -124,11 +129,6 @@ The time value is prepended to the input-group div and displays as a button/labe
     currentTime = moment().format("dddd, MMMM Do, YYYY");
   }
 
-  // function isInFuture(num) {
-  //   if(moment().isAfter(startHour(num, calendarStartHour))){
-  //     console.log("It's after that.");
-  //   }
-  // }
   // Event Handler For Enter Key on Input
   $(".form-control").on("keydown", function(e) {
     let keycode = e.which;

@@ -1,25 +1,35 @@
-.hasEvent {
-  background: #d63f74;
+html,
+body {
+  background: #dee3dc;
 }
+/* .hasEvent {
+  background: #d63f74;
+} */
 
 button.btn.btn-link {
   /* font-family: "Monoton", cursive; */
-  font-family: "Poiret One", cursive;
-  font-weight: bold;
+  font-family: "Alfa Slab One", cursive;
+  font-weight: bolder;
 }
 
 input.form-control {
   align-items: right;
 }
 div.card {
-  padding:0;
+  padding: 0;
+  background: #313d50;
 }
 
 div.card-body {
   padding: 0;
+  background: #dee3dc;
 }
 
 span.text-right.input-group-text {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+li.list-group-item.border-0 {
+  background: #dee3dc;
 }
