@@ -1,3 +1,4 @@
+$(document).ready(function() {
 /* GLOBAL VARIABLES */
 /*****************************************/
 var currentTime;
@@ -22,14 +23,15 @@ let hasList;
 // Global Variables for Storing Form Inputs
 let inputVal = "";
 let inputId = "";
-let localStorageEvents;
 /*****************************************/
-$(document).ready(function() {
+
+  pushStoredEvents();
   iterateRows();
   startHour();
   makeHeader();
   addButton();
   isPast(0);
+  displayStoredEvents();
 
   // Creates rows for each hour to display. Calculated as the difference between start and end hour.
   function iterateRows() {
@@ -160,12 +162,11 @@ The time value is prepended to the input-group div and displays as a button/labe
     let eventBodyArr = $("span[id^=eventBody]");
     // Iterates through spans to find the one that matches the input field
     // InputVal is updated in the event handler where updateEventBody() is called
-    for (let i = 0; i < eventBodyArr.length; i++) {
+    for (i = 0; i < eventBodyArr.length; i++) {
       if (inputId === "eventInput" + i) {
         $(".eventInput" + i).prepend(
           "<li class='list-group-item border-0'>" + inputVal
         );
-        storedEvents[i].eventList.push(inputVal);
         toggleCollapse(i);
         colorHeader(i);
         localStorageEvents = JSON.parse(
